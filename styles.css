@@ -1,0 +1,151 @@
+/* Reset some default styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 600px;
+  width: 90%;
+  margin: 20px auto;
+  padding: 25px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+input[type="file"],
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.checkbox-group {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap; /* Allows checkboxes to wrap on smaller screens */
+}
+
+.checkbox-group div {
+  display: flex;
+  align-items: center; /* Vertically centers checkbox and label */
+}
+
+.checkbox-group input[type="checkbox"] {
+  margin-right: 10px; /* Increased space between checkbox and label */
+  width: 18px; /* Ensures checkbox is large enough */
+  height: 18px;
+}
+
+.checkbox-group label {
+  margin: 0; /* Removes default margin */
+  font-size: 16px; /* Ensures consistent font size with inputs */
+  color: #333;
+}
+
+#progressContainer {
+  width: 100%;
+  background: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 15px;
+}
+
+.progress-bar {
+  height: 25px;
+  font-size: 14px;
+  line-height: 25px;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  transition: width 0.2s ease;
+}
+
+#uploadProgressBar {
+  background: #007bff; /* Blue for upload */
+}
+
+.buttons {
+  text-align: center;
+  margin-top: 20px;
+}
+
+button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 17px;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+#loader {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.spinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1.5s linear infinite;
+  margin: 15px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .checkbox-group {
+    flex-direction: column; /* Stacks checkboxes vertically on small screens */
+    gap: 10px;
+  }
+
+  .spinner {
+    width: 30px;
+    height: 30px;
+    border-width: 4px;
+  }
+}
