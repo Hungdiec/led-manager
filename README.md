@@ -137,15 +137,31 @@
 
    - Nếu muốn giữ nguyên đường dẫn tương đối, cần cấu hình Apache làm reverse proxy (nhưng điều này sẽ thay đổi cấu hình Apache2).
 
-3. **Kiểm tra và Vận hành:**
-   - **Truy cập giao diện Frontend:**  
-     Mở trình duyệt và truy cập `http://10.3.9.142/` để xem trang HTML.
-   - **Đăng nhập và sử dụng:**  
-     Sau khi đăng nhập thành công, sử dụng giao diện để chọn thiết bị, upload file và đẩy file lên thiết bị Android qua backend Node.js.
-   - **Giám sát log:**  
-     Kiểm tra log của Node.js (với PM2 hoặc terminal) để theo dõi quá trình thực thi lệnh ADB và xử lý file.
+## 4. Cấu hình Nginx Proxy Manager
 
-## 4. Lưu ý và Bảo mật
+Để đảm bảo người dùng có thể truy cập từ xa và kết nối giữa frontend và backend hoạt động, cần cấu hình Nginx Proxy Manager với 2 proxy host như sau:
+
+1. **Truy cập vào giao diện quản lý Nginx Proxy Manager:**  
+   Sử dụng trình duyệt để truy cập địa chỉ của Nginx Proxy Manager (địa chỉ này tùy thuộc vào cấu hình của bạn).
+
+2. **Cấu hình Proxy Host cho Frontend:**
+   - **Domain Name:** `led.peridotgrand.com`
+   - **Scheme:** `http`
+   - **Forward Hostname / IP:** `10.3.9.142`
+   - **Forward Port:** `80`
+   - **Options:** Cấu hình SSL (nếu cần) và các tùy chọn khác theo yêu cầu.
+
+3. **Cấu hình Proxy Host cho Backend:**
+   - **Domain Name:** `srv.peridotgrand.com`
+   - **Scheme:** `http`
+   - **Forward Hostname / IP:** `10.3.9.142`
+   - **Forward Port:** `3000`
+   - **Options:** Cấu hình SSL (nếu cần) và các tùy chọn khác theo yêu cầu.
+
+4. **Lưu và Áp dụng cấu hình:**  
+   Sau khi cấu hình xong, lưu lại và khởi động lại Nginx Proxy Manager (nếu cần) để đảm bảo các thay đổi được áp dụng.
+
+## 5. Lưu ý và Bảo mật
 
 - **Bảo mật Tài khoản:**  
   - Đảm bảo rằng thông tin đăng nhập cho hệ thống và máy chủ được bảo mật cẩn thận.
@@ -156,7 +172,7 @@
 - **Giám sát và Backup:**  
   - Sử dụng các công cụ giám sát và thực hiện backup định kỳ để đảm bảo hệ thống hoạt động ổn định.
 
-## 5. Tóm tắt Quy trình Triển khai
+## 6. Tóm tắt Quy trình Triển khai
 
 1. **Chuẩn bị môi trường:**  
    - Cập nhật hệ thống, cài đặt Apache2, Node.js, npm và ADB trên máy ảo Ubuntu (IP: `10.3.9.142`).
@@ -169,7 +185,12 @@
    - Khởi chạy backend Node.js (`server.js`) độc lập (khuyến nghị dùng PM2).
    - Đảm bảo giao tiếp giữa frontend (được phục vụ bởi Apache2) và backend (Node.js) được thiết lập chính xác qua URL API.
 
-4. **Kiểm tra và vận hành:**  
-   - Truy cập giao diện qua `http://10.3.9.142/`.
+4. **Cấu hình Nginx Proxy Manager:**  
+   - Cấu hình 2 proxy host:  
+     - `led.peridotgrand.com` trỏ về `http://10.3.9.142:80`.
+     - `srv.peridotgrand.com` trỏ về `http://10.3.9.142:3000`.
+
+5. **Kiểm tra và Vận hành:**  
+   - Truy cập giao diện qua `http://led.peridotgrand.com` (frontend) và `http://srv.peridotgrand.com` (backend).
    - Thực hiện đăng nhập, upload file và kiểm tra log xử lý ADB.
    - Đảm bảo cấu hình bảo mật, quyền truy cập và backup hệ thống.
